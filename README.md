@@ -30,7 +30,7 @@ References for server.py
 https://www.freecodecamp.org/news/python-bytes-to-string-how-to-convert-a-bytestring/
 https://stackoverflow.com/questions/43580/how-to-find-the-mime-type-of-a-file-in-python
 https://docs.python.org/3/library/mimetypes.html
-https://chat.openai.com/ for debugging help
+https://chat.openai.com/
 https://developer.mozilla.org/en-US/docs/Learn/Server-side/Configuring_server_MIME_types
 https://stackoverflow.com/questions/10091271/how-can-i-implement-a-simple-web-server-using-python-without-using-any-libraries
 
