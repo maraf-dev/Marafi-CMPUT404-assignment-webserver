@@ -75,6 +75,12 @@ class MyWebServer(socketserver.BaseRequestHandler):
     
     def read_file(self, file_name):
         file_path = os.path.abspath("www" + file_name)
+        found = False
+        for i in file_path.split('/'):
+            if i == 'www':
+                found = True
+        if found == False:
+            return None
         if os.path.exists(file_path) and os.path.isfile(file_path):
                 f = open(file_path, 'rb') # read file in binary mode
                 content = f.read()
