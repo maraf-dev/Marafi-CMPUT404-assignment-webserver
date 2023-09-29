@@ -47,16 +47,12 @@ class MyWebServer(socketserver.BaseRequestHandler):
             else: # if path is a directory that ends with a slash, add index.html
                 file_name += 'index.html'
 
-        print("File name: " + file_name)
-        print("Method: " + method)
         
         if method == "GET":
             content = self.read_file(file_name)
             if content != None:
-                print("200 OK")
                 self.send_response(200, "OK", content, mimetypes.guess_type(os.path.abspath("www" + file_name)))
             elif redirect:
-                    print("301 Moved Permanently: "+ file_name)
                     self.send_response(301, "Moved Permanently", None, None, ("http://127.0.0.1" + ":" + str(PORT)+file_name))
             else:
                 self.send_response(404, "File not found")
@@ -66,27 +62,22 @@ class MyWebServer(socketserver.BaseRequestHandler):
     def read_file(self, file_name):
         file_path = os.path.abspath("www" + file_name)
         if os.path.exists(file_path) and os.path.isfile(file_path):
-                print("File exists")
                 f = open(file_path, 'rb') # read file in binary mode
                 content = f.read()
                 f.close()
                 return content  
         elif os.path.exists(file_path) and os.path.isdir(file_path):
-            print("File is a directory")
             return None
         else:
-            print("File does not exist")
             return None
 
     def send_response(self, code, message, content=None, content_type=None, new_location=None):
         if code == 200:
-            print("mime type: " + str(content_type))
             response = f"HTTP/1.1 {code} {message}\r\n"
             response += f"Content-Type: {content_type[0]}\r\n"
             response += f"Content-Length: {len(content)}\r\n"
             response += "\r\n"
             response += content.decode("utf-8")
-            print("response:\n"+response)
             self.request.sendall(response.encode("utf-8"))
         elif code == 301:
             response = f"HTTP/1.1 {code} {message}\r\n"
